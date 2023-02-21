@@ -6,12 +6,15 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleGuardGuard implements CanActivate {
-  authService: any;
+  constructor(private authService:AuthService){
+
+  }
   router: any;
   canActivate(
     route: ActivatedRouteSnapshot,

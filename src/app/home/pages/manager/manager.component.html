@@ -1,1 +1,49 @@
-<p>manager works!</p>
+<h5>Addons</h5>
+<form [formGroup]="contractualConditionsForm" (ngSubmit)="sendData()">
+  <h1>Jardinera</h1>
+  <div class="grid p-fluid">
+    <div class="col-12 md:col-4">
+      <div class="p-inputgroup">
+        <input type="number" pInputNumber placeholder="Jornada Completa" formControlName="jardineraFull"/>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-4">
+      <div class="p-inputgroup">
+        <input type="number" pInputNumber placeholder="Jornada Parcial" formControlName="jardineraPart"/>
+      </div>
+    </div>
+  </div>
+
+  <h1>Equipaje</h1>
+  <div class="grid p-fluid">
+    <div class="col-12 md:col-4">
+      <div class="p-inputgroup">
+        <input type="number" pInputNumber placeholder="Jornada Completa" formControlName="equipajeFull"/>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-4">
+      <div class="p-inputgroup">
+        <input type="number" pInputNumber placeholder="Jornada Parcial" formControlName="equipajePart"/>
+      </div>
+    </div>
+
+  </div>
+
+  <h1>Coordinación</h1>
+  <div class="grid p-fluid">
+    <div class="col-12 md:col-4">
+      <div class="p-inputgroup">
+        <input type="number" pInputNumber placeholder="Jornada Completa" formControlName="coordFull"/>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-4">
+      <div class="p-inputgroup">
+        <input type="number" pInputNumber placeholder="Jornada Parcial" formControlName="coordPart"/>
+      </div>
+    </div>
+  </div>
+  <button>Enviar</button>
+</form>
