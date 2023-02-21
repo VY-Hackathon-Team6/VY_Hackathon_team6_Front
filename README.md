@@ -18,7 +18,7 @@ Instalar las dependencias, para ello podemos abrir una terminal en la consola de
 ### Paso 3
 Para ejecutar el proyecto y poder verlo se debe ejecutar el comando:
 ``` shell
-npm run serve
+npm run start
 ```
 
 De esta manera se os levantara en ``localhost:4200`` un servidor para que podais ver y navegar por la pagina.
