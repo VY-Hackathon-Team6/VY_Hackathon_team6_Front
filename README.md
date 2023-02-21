@@ -1,27 +1,34 @@
 # VYHackathonTeam6Front
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
+## Guia de instalación
+### Paso 1
+Clonar el proyecto
+``` shell
+git clone https://github.com/Laura-Guerra/VY_Hackathon_team6_Front-1.git
+```
+### Paso 2 
+Instalar las dependencias, para ello podemos abrir una terminal en la consola del proyecto y ejecutar
+``` shell
+  npm i
+```
+### Paso 3
+Para ejecutar el proyecto y poder verlo se debe ejecutar el comando:
+``` shell
+npm run serve
+```
 
-## Development server
+De esta manera se os levantara en ``localhost:4200`` un servidor para que podais ver y navegar por la pagina.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Rutas importantes
+``localhost:4200/login``
+Nos permite ver el login de la aplicación
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+``localhost:4200/home`` y ``localhost:4200/home/dashboard``
+Nos permite ver la vista donde estara la tabla donde pintaremos los datos
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+``localhost:4200/home/manager``
+Nos permite entrar en la vista de administrador 
