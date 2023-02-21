@@ -40,6 +40,7 @@ export class AuthService {
 
   isAdmin(): boolean {
     const user: any = jwt_decode(localStorage.getItem('auth_token')!)
+    console.log(user[Ejwt.role])
     return user[Ejwt.role] == ERol.admin;
   }
 }
