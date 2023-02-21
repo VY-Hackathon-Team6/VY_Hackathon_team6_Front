@@ -22,14 +22,12 @@ export class AuthService {
   login(user: string, password: string) {
     const login = { user: user, pass: password };
     this.http
-      .get(this.uri/*, JSON.stringify(login)*/)
+      .post(this.uri, JSON.stringify(login))
       .subscribe(
         (resp:any) => {
           console.log(resp[0].accessToken);
             localStorage.setItem('auth_token', resp[0].accessToken);
-
             this.router.navigate(['home']);
-            console.log(this.isAdmin());
         }
       );
   }
@@ -40,7 +38,6 @@ export class AuthService {
 
   isAdmin(): boolean {
     const user: any = jwt_decode(localStorage.getItem('auth_token')!)
-    console.log(user[Ejwt.role])
     return user[Ejwt.role] == ERol.admin;
   }
 }
