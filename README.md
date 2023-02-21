@@ -1,4 +1,8 @@
 # VYHackathonTeam6Front
+## Primeros pasos
+Si no tienes instalado node, entra en esta web: https://nodejs.org/es/
+Despues bajate la versión LTS
+![image](https://user-images.githubusercontent.com/22988550/220467054-3fcd9006-e559-4565-8dd7-f2608cf3e6c7.png)
 
 ## Guia de instalación
 ### Paso 1
