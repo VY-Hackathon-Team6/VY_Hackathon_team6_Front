@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { ERol } from './models/Erol';
 import IUser from './models/IUser';
 import jwt_decode from 'jwt-decode';
-
+import { Ejwt } from './models/Ejwt';
+import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  uri = ''; // Guardar en enviroments
+  uri = 'https://pastebin.com/raw/fsHqkVfb'; // Guardar en enviroments
   token!: string;
 
   constructor(
@@ -21,21 +22,24 @@ export class AuthService {
   login(user: string, password: string) {
     const login = { user: user, pass: password };
     this.http
-      .post(this.uri + '/authenticate', JSON.stringify(login))
+      .get(this.uri/*, JSON.stringify(login)*/)
       .subscribe(
         (resp:any) => {
-            sessionStorage.setItem('auth_token', resp);
-            this.router.navigate(['']);
+          console.log(resp[0].accessToken);
+            localStorage.setItem('auth_token', resp[0].accessToken);
+
+            this.router.navigate(['home']);
+            console.log(this.isAdmin());
         }
       );
   }
 
   islogin(): boolean {
-    return sessionStorage.getItem('auth_token') ? true : false;
+    return localStorage.getItem('auth_token') ? true : false;
   }
 
   isAdmin(): boolean {
-    const user: IUser = jwt_decode(sessionStorage.getItem('auth_token')!);
-    return user.rol == ERol.admin;
+    const user: any = jwt_decode(localStorage.getItem('auth_token')!)
+    return user[Ejwt.role] == ERol.admin;
   }
 }

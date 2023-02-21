@@ -9,7 +9,7 @@ import { Validators, FormBuilder, FormControl, FormGroup,} from '@angular/forms'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public user = '';
+  public email = '';
   public password = '';
   public loginForm!: FormGroup;
 
@@ -19,17 +19,17 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    sessionStorage.clear();
+    localStorage.clear();
     this.loginForm = this.formBuilder.group({
-      user: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
 
   Login() {
-    this.user = this.loginForm.controls['user'].value;
+    this.email = this.loginForm.controls['email'].value;
     this.password = this.loginForm.controls['password'].value;
-    this.authService.login(this.user, this.password);
+    this.authService.login(this.email, this.password);
   }
 
   public get logIn(): boolean {

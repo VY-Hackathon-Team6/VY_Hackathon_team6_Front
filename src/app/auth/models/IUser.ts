@@ -1,8 +1,9 @@
 import { ERol } from "./Erol"
 
 export default interface IUser {
+  map(arg0: () => void): unknown
   id: number,
-  nombre: string,
+  name: string,
   email: string,
-  rol: ERol
+  role: ERol
 }

@@ -6,6 +6,7 @@ import { ManagerComponent } from './pages/manager/manager.component';
 
 
 
+
 @NgModule({
   declarations: [
     HomeComponent,
