@@ -1,1 +1,18 @@
-<p>login works!</p>
+<div class="content">
+  <div class="form">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="Login()">
+      <div class="spacer">
+        <label class="label" for="User">User</label>
+        <input class="input" type="text" placeholder="User" formControlName="user">
+      </div>
+      <div class="spacer">
+        <label class="label" for="password">Password</label>
+        <input class="input" type="password" placeholder="Password" formControlName="password" />
+      </div>
+      <div class="spacer" id="sendSpacer">
+        <button class="button-59" role="button">Send</button>
+      </div>
+    </form>
+  </div>
+</div>
