@@ -7,6 +7,7 @@ import { Error404Component } from './shared/error404/error404.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: 'home',
     canActivate: [RoleGuardGuard],
