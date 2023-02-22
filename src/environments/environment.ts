@@ -1,5 +1,5 @@
 
 export const environment = {
   production: false,
-  URL_API_DATA: 'https://pastebin.com/raw/bNTF4kr0',
+  URL_API_DATA: 'http://localhost:3000',
 };
