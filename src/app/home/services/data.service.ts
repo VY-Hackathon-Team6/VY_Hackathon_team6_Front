@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +17,13 @@ export class DataService {
 
   getData(): void {
     this.dataArray$.next([])
-    this.http.get<Data[]>(environment.URL_API_DATA).subscribe(array => this.dataArray$.next(array));
+    this.http.get<Data[]>(`${environment.URL_API_DATA}/realData`).pipe(
+      map(array => array.map(data => {
+        data.hour = Number(data.hour)
+        data.day = data.day.split('T')[0]
+        return data
+      }))
+    ).subscribe(array => this.dataArray$.next(array));
   }
 
   getDataArray(): Observable<Data[]> {

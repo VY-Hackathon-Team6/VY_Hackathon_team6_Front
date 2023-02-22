@@ -12,6 +12,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {DropdownModule} from 'primeng/dropdown';
 
+import { FileSaverModule } from 'ngx-filesaver';
+
 import { Error404Component } from './error404/error404.component';
 import { LoadingComponent } from './loading/loading.component';
 import { CommonModule } from '@angular/common';
@@ -31,6 +33,7 @@ import { CommonModule } from '@angular/common';
 		DropdownModule,
 		ButtonModule,
 		ToastModule,
+    FileSaverModule,
     InputTextModule,
     ProgressBarModule
   ]

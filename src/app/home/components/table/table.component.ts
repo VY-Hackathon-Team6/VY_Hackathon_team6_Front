@@ -1,124 +1,133 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { Table } from 'primeng/table';
 import { PrimeNGConfig } from 'primeng/api';
-import { Customer, Representative } from './helps/customer';
-import { CustomerService } from './helps/customerservice';
+import { FileSaverService } from 'ngx-filesaver';
 
+import { Data } from '../../interfaces/data.interface';
+import { DataService } from '../../services/data.service';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
+  dataArray!: Data[];
 
-  customers!: Customer[];
+  statuses!: any[];
 
-    selectedCustomers!: Customer[];
+  loading: boolean = true;
 
-    representatives!: Representative[];
+  exportColumns = [  { title: "hour", dataKey: "hour" },  { title: "Full-time Employees", dataKey: "fullTimeEmployees" },  { title: "Part-time Employees", dataKey: "partTimeEmployees" },  { title: "Total Employees", dataKey: "totalEmployees" },  { title: "Full-time Employees cost", dataKey: "fullTimeEmployeesCost" },  { title: "Part-time Employees cost", dataKey: "partTimeEmployeesCost" },  { title: "day", dataKey: "day" },  { title: "handlingFuncion", dataKey: "handlingFuncion" },  { title: "totalCost", dataKey: "totalCost" }];
 
-    statuses!: any[];
 
-    loading: boolean = true;
+  @ViewChild('dt') table!: Table;
 
-    @ViewChild('dt') table!: Table;
+  constructor(
+    private dataService: DataService,
+    private fileSaverService: FileSaverService,
+    private primengConfig: PrimeNGConfig
+  ) {}
 
-    constructor(private customerService: CustomerService, private primengConfig: PrimeNGConfig) {
-      // this.table.filterGlobal()
-    }
+  ngOnInit() {
+    this.dataService.getDataArray().subscribe((array) => {
+      this.dataArray = array;
+      this.loading = false;
+    });
 
-    ngOnInit() {
-        this.customerService.getCustomersLarge().subscribe(customers => {
-            this.customers = customers;
-            this.loading = false;
-        });
-
-        this.representatives = [
-            {name: "Amy Elsner", image: 'amyelsner.png'},
-            {name: "Anna Fali", image: 'annafali.png'},
-            {name: "Asiya Javayant", image: 'asiyajavayant.png'},
-            {name: "Bernardo Dominic", image: 'bernardodominic.png'},
-            {name: "Elwin Sharvill", image: 'elwinsharvill.png'},
-            {name: "Ioni Bowcher", image: 'ionibowcher.png'},
-            {name: "Ivan Magalhaes",image: 'ivanmagalhaes.png'},
-            {name: "Onyama Limba", image: 'onyamalimba.png'},
-            {name: "Stephen Shaw", image: 'stephenshaw.png'},
-            {name: "XuXue Feng", image: 'xuxuefeng.png'}
-        ];
-
-        this.statuses = [
-            {label: 'Unqualified', value: 'unqualified'},
-            {label: 'Qualified', value: 'qualified'},
-            {label: 'New', value: 'new'},
-            {label: 'Negotiation', value: 'negotiation'},
-            {label: 'Renewal', value: 'renewal'},
-            {label: 'Proposal', value: 'proposal'}
-        ]
-        this.primengConfig.ripple = true;
-    }
-
-    onActivityChange(event: any) {
-        const value = event.target.value;
-        if (value && value.trim().length) {
-            const activity = parseInt(value);
-
-            if (!isNaN(activity)) {
-                this.table.filter(activity, 'activity', 'gte');
-            }
-        }
-    }
-
-    onDateSelect(value: any) {
-        this.table.filter(this.formatDate(value), 'date', 'equals')
-    }
-
-    formatDate(date: any) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        if (day < 10) {
-            day = '0' + day;
-        }
-
-        return date.getFullYear() + '-' + month + '-' + day;
-    }
-
-    onRepresentativeChange(event: any) {
-        this.table.filter(event.value, 'representative', 'in')
-    }
-
-    applyFilterGlobal($event: Event, stringVal: string) {
-      this.table.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
-    }
-
-    applyFilter($event: Event, stringCol: string, stringVal: string) {
-      this.table.filter(($event.target as HTMLInputElement).value, stringCol, stringVal);
-    }
-
-  /* dataArray: Data[] = []
-
-  constructor(private dataService: DataService) {
-
-  }
-  ngOnInit(): void {
-    this.dataService.getDataArray().subscribe(array => this.dataArray = array)
+    this.statuses = [
+      { label: 'Equipajes', value: 'EQUIPAJES' },
+      { label: 'Coordinador', value: 'COORDINADOR' },
+      { label: 'Jardinera', value: 'JARDINERA' },
+    ];
+    this.primengConfig.ripple = true;
   }
 
-  loadData(event: LazyLoadEvent) {
-    // Utiliza tu servicio para obtener los datos de la API
-    this.dataService.getData(event.first, event.rows, event.sortField, event.sortOrder).subscribe((response) => {
-      this.data = response.data;
-      this.totalRecords = response.totalRecords;
+  onActivityChange(event: any) {
+    const value = event.target.value;
+    if (value && value.trim().length) {
+      const activity = parseInt(value);
+
+      if (!isNaN(activity)) {
+        this.table.filter(activity, 'activity', 'gte');
+      }
+    }
+  }
+
+  onDateSelect(value: any) {
+    this.table.filter(this.formatDate(value), 'day', 'equals');
+  }
+
+  formatDate(date: any) {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    if (day < 10) {
+      day = '0' + day;
+    }
+
+    return date.getFullYear() + '-' + month + '-' + day;
+  }
+
+  applyFilterGlobal($event: Event, stringVal: string) {
+    this.table.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      stringVal
+    );
+  }
+
+  applyFilter($event: Event, stringCol: string, stringVal: string) {
+    this.table.filter(
+      ($event.target as HTMLInputElement).value,
+      stringCol,
+      stringVal
+    );
+  }
+
+  clickcsv() {
+    this.table.exportCSV()
+  }
+
+  /* exportPdf() {
+    import("jspdf").then(jsPDF => {
+        import("jspdf-autotable").then(x => {
+            const doc = new jsPDF.default(0,0);
+            doc.autoTable(this.exportColumns, this.dataArray);
+            doc.save('dataArray.pdf');
+        })
+    })
+  }
+   */
+  
+  exportExcel() {
+    import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.dataArray);
+        const headers = this.exportColumns.map(column => column.title);
+        worksheet["A1"] = { t: "s", v: headers };
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "dataArray");
     });
   }
+  
+  
 
-  onSort(event: SortEvent) {
-    this.loadData({ first: 0, rows: 10, sortField: event.field, sortOrder: event.order });
-  } */
-
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE =
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE,
+    });
+    this.fileSaverService.save(
+      data,
+      fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
+    );
+  }
 }
