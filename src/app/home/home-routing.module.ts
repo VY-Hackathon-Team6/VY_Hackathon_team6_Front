@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { RoleGuard } from '../auth/guards/role.guard';
 
 import { HomeComponent } from './home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -11,7 +12,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'manager', component: ManagerComponent },
+      { path: 'management', component: ManagerComponent, canActivate: [RoleGuard] },
       { path: '**', redirectTo: 'dashboard' }
     ]
   }

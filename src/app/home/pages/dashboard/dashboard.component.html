@@ -1,1 +1,132 @@
-<app-table></app-table>
+<p-table #dt [value]="dataArray" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
+  [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+  [globalFilterFields]="['hour', 'fullTimeEmployees', 'partTimeEmployees', 'totalEmployees','day', 'totalCost', 'handlingFuncion', 'fullTimeEmployeesCost', 'partTimeEmployeesCost']">
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <div class="flex">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-warning mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+      </div>
+      Data days in hours
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Global Search" />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="hour">hour <p-sortIcon field="hour"></p-sortIcon>
+      </th>
+      <th pSortableColumn="fullTimeEmployees">Full-time Employees <p-sortIcon field="fullTimeEmployees"></p-sortIcon>
+      </th>
+      <th pSortableColumn="partTimeEmployees">Part-time Employees <p-sortIcon field="partTimeEmployees"></p-sortIcon>
+      </th>
+      <th pSortableColumn="totalEmployees">Total Employees <p-sortIcon field="totalEmployees"></p-sortIcon>
+      </th>
+      <th pSortableColumn="fullTimeEmployeesCost">Full-time Employees cost <p-sortIcon field="fullTimeEmployeesCost">
+        </p-sortIcon>
+      </th>
+      <th pSortableColumn="partTimeEmployeesCost">Part-time Employees cost <p-sortIcon field="partTimeEmployeesCost">
+        </p-sortIcon>
+      </th>
+      <th pSortableColumn="day">Day <p-sortIcon field="day"></p-sortIcon>
+      </th>
+      <th pSortableColumn="handlingFuncion">Handling Funcion <p-sortIcon field="handlingFuncion"></p-sortIcon>
+      </th>
+      <th pSortableColumn="totalCost">Total cost <p-sortIcon field="totalCost"></p-sortIcon>
+      </th>
+      <th style="width: auto"></th>
+    </tr>
+    <tr>
+      <th>
+        <input pInputText type="text" (input)="applyFilter($event, 'hour', 'startsWith')" placeholder="By hour"
+          class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="applyFilter($event, 'fullTimeEmployees', 'contains')"
+          placeholder="By Full-time Employees" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="applyFilter($event, 'partTimeEmployees', 'contains')"
+          placeholder="By Part-time Employees" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="applyFilter($event, 'totalEmployees', 'contains')"
+          placeholder="By Total Employees" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="applyFilter($event, 'fullTimeEmployeesCost', 'startsWith')"
+          placeholder="By Full-time cost" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="applyFilter($event, 'partTimeEmployeesCost', 'startsWith')"
+          placeholder="By Full-time cost" class="p-column-filter">
+      </th>
+      <th>
+        <p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'day', 'equals')"
+          [showButtonBar]="true" styleClass="p-column-filter" placeholder="Registration day" [readonlyInput]="true"
+          dayFormat="yy-mm-dd"></p-calendar>
+      </th>
+      <th>
+        <p-dropdown [options]="statuses" (onChange)="dt.filter($event.value, 'handlingFuncion', 'equals')"
+          styleClass="p-column-filter" placeholder="Select a handlingFuncion" [showClear]="true">
+          <ng-template let-option pTemplate="item">
+            <span [class]="'customer-badge status-' + option.value">&#123;&#123;option.label&#125;&#125;</span>
+          </ng-template>
+        </p-dropdown>
+      </th>
+      <th>
+        <input pInputText type="text" (input)="applyFilter($event, 'totalCost', 'startsWith')"
+          placeholder="By totalCost" class="p-column-filter">
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr class="p-selectable-row">
+      <td>
+        <span class="p-column-title">Hour</span>
+        {{data.hour}}
+      </td>
+      <td>
+        <span class="p-column-title">Full-time Employees</span>
+        <span class="image-text">{{data.fullTimeEmployees}}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Part-time Employees</span>
+        <span class="image-text">{{data.partTimeEmployees}}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Total Employees</span>
+        <span class="image-text">{{data.totalEmployees}}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Full-time Employees cost</span>
+        <span class="image-text">{{data.fullTimeEmployeesCost}}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Part-time Employees cost</span>
+        <span class="image-text">{{data.partTimeEmployeesCost}}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Day</span>
+        {{data.day}}
+      </td>
+      <td>
+        <span class="p-column-title">Handling Funcion</span>
+        <span [class]="'customer-badge status-' + data.handlingFuncion">{{data.handlingFuncion}}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Total cost</span>
+        <span class="image-text">{{data.totalCost | currency}}</span>
+        <p-progressBar [value]="data.totalCost" [showValue]="false"></p-progressBar>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template class="fixed" pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">No data found.</td>
+    </tr>
+  </ng-template>
+</p-table>

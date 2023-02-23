@@ -1,1 +1,74 @@
-<p>manager works!</p>
+<div class="container">
+  <article>Introduzca el sueldo por hora de los empleados:</article>
+  <form [formGroup]="contractualConditionsForm" (ngSubmit)="sendData()">
+    <h2>Jardinera</h2>
+    <div class="grid p-fluid">
+      <div class="col-12 md:col-5">
+        <div class="p-inputgroup">
+          <p-inputNumber
+            type="number"
+            placeholder="Sueldo/h jornada completa (€)"
+            formControlName="jardineraFull"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 md:col-5">
+        <div class="p-inputgroup">
+          <p-inputNumber
+            type="number"
+            placeholder="Sueldo/h jornada partida (€)"
+            formControlName="jardineraPart"
+          />
+        </div>
+      </div>
+    </div>
+
+    <h2>Equipaje</h2>
+    <div class="grid p-fluid">
+      <div class="col-12 md:col-5">
+        <div class="p-inputgroup">
+          <p-inputNumber
+            type="number"
+            placeholder="Sueldo/h jornada completa (€)"
+            formControlName="equipajeFull"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 md:col-5">
+        <div class="p-inputgroup">
+          <p-inputNumber
+            type="number"
+            placeholder="Sueldo/h jornada partida(€)"
+            formControlName="equipajePart"
+          />
+        </div>
+      </div>
+    </div>
+
+    <h2>Coordinación</h2>
+    <div class="grid p-fluid">
+      <div class="col-12 md:col-5">
+        <div class="p-inputgroup">
+          <p-inputNumber
+            type="number"
+            placeholder="Sueldo/h jornada completa (€)"
+            formControlName="coordFull"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 md:col-5">
+        <div class="p-inputgroup">
+          <p-inputNumber
+            type="number"
+            placeholder="Sueldo/h jornada partida (€)"
+            formControlName="coordPart"
+          />
+        </div>
+      </div>
+    </div>
+    <button pButton pRipple type="submit" label="Warning" class="p-button-raised p-button-warning"></button>
+  </form>
+</div>

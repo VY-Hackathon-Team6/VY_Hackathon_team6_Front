@@ -9,17 +9,3 @@ export interface Data {
   partTimeEmployeesCost: number;
   totalCost: number;
 }
-
-/* export interface Data {
-
-  Day: string;
-  Hour: number;
-  'Handling Funcion': string;
-  'Full-time Employees': number;
-  'Part-time Employees': number;
-  'Total Employees': number;
-  'Full-time Employees cost': number;
-  'Part-time Employees cost': number;
-  'Total cost': number;
-}
- */

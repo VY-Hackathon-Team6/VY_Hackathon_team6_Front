@@ -1,0 +1,40 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "angular"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:angular/johnpapa"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "angular/controller-as-route": "error",
+    "angular/controller-as-vm": "error",
+    "angular/controller-name": "error",
+    "angular/deferred": "error",
+    "angular/di": "error",
+    "angular/di-order": "error",
+    "angular/directive-name": "error",
+    "angular/empty-controller": "error",
+    "angular/no-controller": "error",
+    "angular/no-inline-template": "error",
+    "angular/no-run-logic": "error",
+    "angular/no-services": "error",
+    "angular/on-watch": "error",
+    "angular/rest-service": "error",
+    "angular/service-name": "error",
+    "angular/timeout-service": "error",
+    "angular/typecheck-array": "error",
+    "angular/typecheck-date": "error",
+    "angular/typecheck-function": "error",
+    "angular/typecheck-number": "error",
+    "angular/typecheck-object": "error",
+    "angular/typecheck-string": "error"
+  }
+}
